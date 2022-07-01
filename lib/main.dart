@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:woodul/logic/keyboard_controllers/cubit/cell_cubit.dart';
-import 'package:woodul/logic/keyboard_controllers/cubit/controller_cubit.dart';
-import 'package:woodul/logic/keyboard_controllers/cubit/form_cubit.dart';
+import 'package:woodul/logic/cell/cell_cubit.dart';
+import 'package:woodul/logic/keyboard/controller_cubit.dart';
+import 'package:woodul/logic/form_cubit.dart';
 
+import 'logic/cell/cell_state_cubit.dart';
+import 'logic/keyboard/key_state.dart';
+import 'logic/level_cubit.dart';
 import 'presentation/screens/home.dart';
 
 void main() {
@@ -33,6 +36,15 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ControllerCubit(),
+          ),
+          BlocProvider(
+            create: (context) => CellStateCubit(),
+          ),
+          BlocProvider(
+            create: (context) => KeyStateCubit(),
+          ),
+          BlocProvider(
+            create: (context) => LevelCubit(),
           ),
         ],
         child: const GameScreen(),

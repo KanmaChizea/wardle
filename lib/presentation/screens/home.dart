@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:woodul/logic/keyboard_controllers/cubit/controller_cubit.dart';
 
-import 'package:woodul/logic/keyboard_controllers/cubit/form_cubit.dart';
-import 'package:woodul/presentation/components/cell.dart';
+import 'package:woodul/logic/form_cubit.dart';
+import 'package:woodul/logic/keyboard/controller_cubit.dart';
+
 import 'package:woodul/presentation/components/custom_keyboard.dart';
+
+import '../components/form.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -30,26 +32,32 @@ class _GameScreenState extends State<GameScreen> {
                   children: [
                     const SizedBox(height: 50),
                     TextFieldRow(
+                        rowNo: 0,
                         enabled: state == 1,
                         controllers: state == 1 ? controller : null),
                     const SizedBox(height: 8),
                     TextFieldRow(
+                        rowNo: 1,
                         enabled: state == 2,
                         controllers: state == 2 ? controller : null),
                     const SizedBox(height: 8),
                     TextFieldRow(
+                        rowNo: 2,
                         enabled: state == 3,
                         controllers: state == 3 ? controller : null),
                     const SizedBox(height: 8),
                     TextFieldRow(
+                        rowNo: 3,
                         enabled: state == 4,
                         controllers: state == 4 ? controller : null),
                     const SizedBox(height: 8),
                     TextFieldRow(
+                        rowNo: 4,
                         enabled: state == 5,
                         controllers: state == 5 ? controller : null),
                     const SizedBox(height: 8),
                     TextFieldRow(
+                        rowNo: 5,
                         enabled: state == 6,
                         controllers: state == 6 ? controller : null),
                     Flexible(child: Container()),
@@ -60,42 +68,6 @@ class _GameScreenState extends State<GameScreen> {
             },
           );
         }),
-      ),
-    );
-  }
-}
-
-class TextFieldRow extends StatelessWidget {
-  const TextFieldRow({
-    Key? key,
-    this.controllers,
-    required this.enabled,
-  }) : super(key: key);
-
-  final List<TextEditingController>? controllers;
-  final bool enabled;
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextCell(
-              controller: controllers?[0], autoFocus: true, enabled: enabled),
-          const SizedBox(width: 8),
-          TextCell(
-              controller: controllers?[1], autoFocus: false, enabled: enabled),
-          const SizedBox(width: 8),
-          TextCell(
-              controller: controllers?[2], autoFocus: false, enabled: enabled),
-          const SizedBox(width: 8),
-          TextCell(
-              controller: controllers?[3], autoFocus: false, enabled: enabled),
-          const SizedBox(width: 8),
-          TextCell(
-              controller: controllers?[4], autoFocus: false, enabled: enabled)
-        ],
       ),
     );
   }

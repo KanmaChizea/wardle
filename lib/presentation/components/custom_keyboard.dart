@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/data/exceptions.dart';
 import 'package:woodul/data/keyboard_functions.dart';
-import 'package:woodul/logic/keyboard_controllers/cubit/cell_cubit.dart';
-import 'package:woodul/logic/keyboard_controllers/cubit/controller_cubit.dart';
+import 'package:woodul/logic/cell/cell_cubit.dart';
+import 'package:woodul/logic/cell/cell_state_cubit.dart';
+import 'package:woodul/logic/keyboard/controller_cubit.dart';
+import 'package:woodul/logic/keyboard/key_state.dart';
 
 import 'error_snackbar.dart';
 
@@ -37,8 +39,8 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
         alignment: Alignment.bottomCenter,
         child: Container(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-          color: Colors.grey.shade900,
-          height: 180,
+          color: Colors.transparent,
+          height: 190,
           width: width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -75,7 +77,7 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
                 buildKey(keyWidth, 'B'),
                 buildKey(keyWidth, 'N'),
                 buildKey(keyWidth, 'M'),
-                buildSpecialKey(Icons.keyboard_backspace),
+                buildSpecialKey(Icons.backspace_outlined),
               ]),
             ],
           ),
@@ -89,7 +91,7 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
           builder: (context, indexState) {
             return InkWell(
                 onTap: (() {
-                  if (icon == Icons.keyboard_backspace) {
+                  if (icon == Icons.backspace_outlined) {
                     try {
                       delete(context);
                     } catch (e) {
@@ -111,9 +113,9 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
                 }),
                 child: Container(
                     width: 50,
-                    height: 40,
+                    height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.grey.shade700,
                         borderRadius: BorderRadius.circular(5)),
                     child: Center(
                         child: Icon(
@@ -137,18 +139,33 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
               .showSnackBar(errorSnackBar('End of word', context));
         }
       },
-      child: Container(
-          width: keyWidth,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(5)),
-          child: Center(
-              child: Text(
-            letter,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-          ))),
+      child: BlocBuilder<KeyStateCubit, Map<String, CellState>>(
+          builder: (context, state) {
+        String keyValue = letter.toLowerCase();
+        return Container(
+            width: keyWidth,
+            height: 50,
+            decoration: BoxDecoration(
+                color: state.containsKey(keyValue) &&
+                        state[keyValue] == CellState.ww
+                    ? Colors.grey.shade900
+                    : state.containsKey(keyValue) &&
+                            state[keyValue] == CellState.rw
+                        ? Colors.yellow
+                        : state.containsKey(keyValue) &&
+                                state[keyValue] == CellState.rr
+                            ? Colors.green
+                            : Colors.grey.shade700,
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+                child: Text(
+              letter,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            )));
+      }),
     );
   }
 }
