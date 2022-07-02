@@ -6,13 +6,13 @@ import 'package:bloc/bloc.dart';
 
 enum CellState { unanswered, rr, rw, ww }
 
-class CellStateCubit extends Cubit<List> {
+class CellStateCubit extends Cubit<List<List<CellState>>> {
   CellStateCubit()
       : super(List.generate(
             6, (index) => List.generate(5, (index) => CellState.unanswered)));
 
   newState(List<CellState> newstate, int index) {
-    List newList = [...state];
+    List<List<CellState>> newList = [...state];
     newList[index - 1] = newstate;
     emit(newList);
   }

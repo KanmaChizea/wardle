@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/data/exceptions.dart';
-import 'package:woodul/data/keyboard_functions.dart';
+import 'package:woodul/data/dataprocessing_functions.dart';
 import 'package:woodul/logic/cell/cell_cubit.dart';
 import 'package:woodul/logic/cell/cell_state_cubit.dart';
 import 'package:woodul/logic/keyboard/controller_cubit.dart';

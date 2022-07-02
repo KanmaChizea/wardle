@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/logic/cell/cell_state_cubit.dart';
-import 'package:woodul/logic/form_cubit.dart';
 
 class TextCell extends StatelessWidget {
   final TextEditingController? controller;
@@ -23,7 +22,7 @@ class TextCell extends StatelessWidget {
     return SizedBox(
         height: 55,
         width: 50,
-        child: BlocBuilder<CellStateCubit, List>(
+        child: BlocBuilder<CellStateCubit, List<List<CellState>>>(
           builder: (context, state) {
             return TextField(
               autofocus: autoFocus,

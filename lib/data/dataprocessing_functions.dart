@@ -5,9 +5,10 @@ import 'package:woodul/data/exceptions.dart';
 import 'package:woodul/data/wordlist.dart';
 import 'package:woodul/logic/cell/cell_state_cubit.dart';
 import 'package:woodul/logic/keyboard/key_state.dart';
+import 'package:woodul/logic/result/result_cubit.dart';
 import '../logic/cell/cell_cubit.dart';
 import '../logic/keyboard/controller_cubit.dart';
-import '../logic/form_cubit.dart';
+import '../logic/cell/form_cubit.dart';
 
 add(BuildContext context, String letter) {
   int index = context.read<CellCubit>().state;
@@ -33,24 +34,33 @@ delete(BuildContext context) {
 enter(BuildContext context) {
   ControllerCubit controllerCubit = context.read<ControllerCubit>();
   int index = context.read<CellCubit>().state;
-  if (index % 6 == 0) {
-    String enteredWord = controllerCubit.joinText();
-    if (isItAWord(enteredWord)) {
-      FormCubit state = context.read<FormCubit>();
-      List newstates = processEntry(enteredWord);
-      context.read<CellStateCubit>().newState(newstates[0], state.state);
-      context.read<KeyStateCubit>().newState(newstates[1]);
-      controllerCubit.nextLine();
-      controllerCubit.generateControllers();
-      context.read<CellCubit>().reset();
-
-      if (state.state != 6) state.goToNext();
-    } else {
-      throw WordDoesNotExist();
-    }
-  } else {
+  if (index % 6 != 0) {
     throw NotEnoughLetters();
   }
+  String enteredWord = controllerCubit.joinText();
+  if (!isItAWord(enteredWord)) {
+    throw WordDoesNotExist();
+  }
+  FormCubit state = context.read<FormCubit>();
+  List newstates = processEntry(enteredWord);
+  context.read<CellStateCubit>().newState(newstates[0], state.state);
+  context.read<KeyStateCubit>().newState(newstates[1]);
+  if (context
+      .read<CellStateCubit>()
+      .state[state.state - 1]
+      .every((e) => e == CellState.rr)) {
+    context.read<ResultCubit>().levelWon();
+  }
+  controllerCubit.nextLine();
+  controllerCubit.generateControllers();
+  context.read<CellCubit>().reset();
+
+  if (state.state != 6) {
+    state.goToNext();
+  } else {
+    context.read<ResultCubit>().levelFailed();
+  }
+  ;
 }
 
 processEntry(String enteredWord) {
@@ -72,4 +82,12 @@ processEntry(String enteredWord) {
     }
   }
   return [cellstate, keystate];
+}
+
+int guessDistribution(List data) {
+  int count = 0;
+  for (var element in data) {
+    if (element == CellState.rr) count++;
+  }
+  return count;
 }
