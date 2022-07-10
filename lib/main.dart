@@ -4,11 +4,12 @@ import 'package:woodul/logic/cell/cell_cubit.dart';
 import 'package:woodul/logic/keyboard/controller_cubit.dart';
 import 'package:woodul/logic/cell/form_cubit.dart';
 
+import 'logic/animation/wordle_sign_cubit.dart';
 import 'logic/cell/cell_state_cubit.dart';
 import 'logic/keyboard/key_state.dart';
 import 'logic/level_cubit.dart';
 import 'logic/result/result_cubit.dart';
-import 'presentation/screens/home.dart';
+import 'presentation/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => LevelCubit(),
         ),
+        BlocProvider(
+          create: (context) => WordleSignCubit(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,7 +55,7 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(
             primaryColor: Colors.white,
             scaffoldBackgroundColor: Colors.grey.shade800),
-        home: const GameScreen(),
+        home: const MenuScreen(),
       ),
     );
   }

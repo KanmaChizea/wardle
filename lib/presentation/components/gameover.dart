@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/data/dataprocessing_functions.dart';
 import 'package:woodul/logic/cell/cell_state_cubit.dart';
-import 'package:woodul/presentation/components/iconbutton.dart';
 import 'package:woodul/presentation/styles/textstyles.dart';
 
 import '../styles/colors.dart';
@@ -75,11 +74,11 @@ class GameOver extends StatelessWidget {
                 if (title == 'Level Failed')
                   ElevatedButton.icon(
                       onPressed: () {},
-                      icon: Icon(Icons.refresh),
-                      label: Text('Play again')),
+                      icon: const Icon(Icons.refresh),
+                      label: const Text('Play again')),
                 ElevatedButton.icon(
-                    icon: Icon(Icons.arrow_forward),
-                    label: Text('Next level'),
+                    icon: const Icon(Icons.arrow_forward),
+                    label: const Text('Next level'),
                     onPressed: () {})
               ],
             ),

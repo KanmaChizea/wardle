@@ -60,7 +60,6 @@ enter(BuildContext context) {
   } else {
     context.read<ResultCubit>().levelFailed();
   }
-  ;
 }
 
 processEntry(String enteredWord) {
