@@ -9,6 +9,7 @@ import 'logic/cell/cell_state_cubit.dart';
 import 'logic/keyboard/key_state.dart';
 import 'logic/level_cubit.dart';
 import 'logic/result/result_cubit.dart';
+import 'logic/animation/settings_cubit.dart';
 import 'presentation/screens/menu.dart';
 
 void main() {
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => WordleSignCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SettingsCubit(),
         ),
       ],
       child: MaterialApp(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:woodul/presentation/animations/drop.dart';
 import 'package:woodul/presentation/styles/colors.dart';
 
-import '../animations/wordle_sign.dart';
+import '../components/options.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -12,22 +14,15 @@ class MenuScreen extends StatelessWidget {
         decoration: const BoxDecoration(gradient: bgGradient),
         child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 150,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: -37,
-                          left: MediaQuery.of(context).size.width / 2 - 114,
-                          child: const AnimatedWordleSign(),
-                        ),
-                      ],
-                    ),
-                  )
-                ])));
+            body: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 42),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    SignDrop(),
+                    MenuOptions(),
+                  ]),
+            )));
   }
 }

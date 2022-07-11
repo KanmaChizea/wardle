@@ -13,3 +13,8 @@ const bgGradient = LinearGradient(
     colors: [Color(0xFF0E0E0E), Color(0x7E11001F)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter);
+LinearGradient whiteGradient = LinearGradient(
+  colors: [const Color(0xFFFFFFFF).withOpacity(0.5), const Color(0x00FFFFFF)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);

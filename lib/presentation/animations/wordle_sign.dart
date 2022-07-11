@@ -66,8 +66,9 @@ class _AnimatedWordleSignState extends State<AnimatedWordleSign>
           origin: const Offset(0, -75),
           angle: animation.value,
           child: Column(children: [
-            SizedBox(
-                width: 228,
+            Container(
+                padding: const EdgeInsets.only(right: 6, left: 2),
+                width: 240,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [Hanger(), Hanger()])),
@@ -77,11 +78,17 @@ class _AnimatedWordleSignState extends State<AnimatedWordleSign>
               style: GoogleFonts.gelasio(
                 fontWeight: FontWeight.bold,
                 fontSize: 48,
-                height: 0.8,
+                height: 0.9,
                 color: white,
               ),
             ),
           ])),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
