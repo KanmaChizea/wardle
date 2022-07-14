@@ -36,12 +36,10 @@ class SecondaryIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: ShaderMask(
-        shaderCallback: (bounds) => bgGradient.createShader(bounds),
-        child: Icon(
-          icon!,
-          size: 24,
-        ),
+      child: Icon(
+        icon!,
+        size: 20,
+        color: white,
       ),
     );
   }

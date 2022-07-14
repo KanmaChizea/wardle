@@ -6,4 +6,8 @@ class WordleSignCubit extends Cubit<double> {
   void update() {
     if (state > 0) emit(state - 0.05);
   }
+
+  void cancel() {
+    emit(1.0);
+  }
 }

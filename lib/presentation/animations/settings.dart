@@ -80,4 +80,11 @@ class _SettingsAnimationState extends State<SettingsAnimation>
       },
     );
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    controller1.dispose();
+    super.dispose();
+  }
 }

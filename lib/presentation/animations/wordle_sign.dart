@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../logic/animation/transition_cubit.dart';
 import '../../logic/animation/wordle_sign_cubit.dart';
 import '../components/hanger.dart';
 import '../styles/colors.dart';
@@ -25,7 +26,6 @@ class _AnimatedWordleSignState extends State<AnimatedWordleSign>
   void initState() {
     _tween = Tween<double>(begin: -0.3, end: 0.3);
     initializeAnimation();
-
     controller.forward(from: 0);
     super.initState();
   }
@@ -60,29 +60,34 @@ class _AnimatedWordleSignState extends State<AnimatedWordleSign>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, child) => Transform.rotate(
-          origin: const Offset(0, -75),
-          angle: animation.value,
-          child: Column(children: [
-            Container(
-                padding: const EdgeInsets.only(right: 6, left: 2),
-                width: 240,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [Hanger(), Hanger()])),
-            Text(
-              'WORDLE',
-              textAlign: TextAlign.start,
-              style: GoogleFonts.gelasio(
-                fontWeight: FontWeight.bold,
-                fontSize: 48,
-                height: 0.9,
-                color: white,
+    return BlocListener<TransitionCubit, bool>(
+      listener: (context, state) {
+        if (state == false) controller.forward(from: 0);
+      },
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (context, child) => Transform.rotate(
+            origin: const Offset(0, -75),
+            angle: controller.isAnimating ? animation.value : 0,
+            child: Column(children: [
+              Container(
+                  padding: const EdgeInsets.only(right: 6, left: 2),
+                  width: 240,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [Hanger(), Hanger()])),
+              Text(
+                'WORDLE',
+                textAlign: TextAlign.start,
+                style: GoogleFonts.gelasio(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 48,
+                  height: 0.9,
+                  color: white,
+                ),
               ),
-            ),
-          ])),
+            ])),
+      ),
     );
   }
 

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:woodul/logic/animation/transition_cubit.dart';
+import 'package:woodul/logic/cubit/navigation_cubit.dart';
 import 'package:woodul/presentation/extensions/iconbuttons.dart';
 
 import '../animations/settings.dart';
@@ -17,8 +20,22 @@ class MenuOptions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const MyIcon(icon: Icons.bar_chart_outlined).primaryButton(),
-          const MyIcon(icon: Icons.info_outline).primaryButton(),
+          MyIcon(
+            icon: Icons.bar_chart_outlined,
+            onPressed: () {
+              context.read<TransitionCubit>().toggle();
+              Future.delayed(const Duration(seconds: 1),
+                  () => context.read<NavigationCubit>().level());
+            },
+          ).primaryButton(),
+          MyIcon(
+            icon: Icons.info_outline,
+            onPressed: () {
+              context.read<TransitionCubit>().toggle();
+              Future.delayed(const Duration(seconds: 1),
+                  () => context.read<NavigationCubit>().info());
+            },
+          ).primaryButton(),
           const SettingsAnimation()
         ],
       ),

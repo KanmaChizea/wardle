@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:woodul/logic/cell/cell_cubit.dart';
+import 'package:flutter/material.dart';
+
+import 'package:woodul/logic/cell/cell_cubit.dart ';
 import 'package:woodul/logic/keyboard/controller_cubit.dart';
 import 'package:woodul/logic/cell/form_cubit.dart';
+import 'package:woodul/navigation_handler.dart';
 
+import 'logic/animation/transition_cubit.dart';
 import 'logic/animation/wordle_sign_cubit.dart';
 import 'logic/cell/cell_state_cubit.dart';
+import 'logic/cubit/navigation_cubit.dart';
 import 'logic/keyboard/key_state.dart';
 import 'logic/level_cubit.dart';
 import 'logic/result/result_cubit.dart';
 import 'logic/animation/settings_cubit.dart';
-import 'presentation/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,16 +53,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SettingsCubit(),
         ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.brown,
+        BlocProvider(
+          create: (context) => NavigationCubit(),
         ),
-        darkTheme: ThemeData(
-            primaryColor: Colors.white,
-            scaffoldBackgroundColor: Colors.grey.shade800),
-        home: const MenuScreen(),
+        BlocProvider(
+          create: (context) => TransitionCubit(),
+        ),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: NavHandler(),
       ),
     );
   }

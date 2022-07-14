@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../logic/animation/transition_cubit.dart';
 import 'wordle_sign.dart';
 
 class SignDrop extends StatefulWidget {
@@ -31,19 +33,24 @@ class _SignDropState extends State<SignDrop>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 150,
-      child: AnimatedBuilder(
-        animation: animation,
-        builder: (context, child) => Stack(
-          children: [
-            Positioned(
-              top: animation.value,
-              left: MediaQuery.of(context).size.width / 2 - 136,
-              child: const AnimatedWordleSign(),
-            ),
-          ],
+    return BlocListener<TransitionCubit, bool>(
+      listener: (context, state) {
+        if (state == false) controller.forward();
+      },
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 150,
+        child: AnimatedBuilder(
+          animation: animation,
+          builder: (context, child) => Stack(
+            children: [
+              Positioned(
+                top: animation.value,
+                left: MediaQuery.of(context).size.width / 2 - 136,
+                child: const AnimatedWordleSign(),
+              ),
+            ],
+          ),
         ),
       ),
     );

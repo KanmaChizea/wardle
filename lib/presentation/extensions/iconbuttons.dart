@@ -33,11 +33,29 @@ extension IconCustomization on Widget {
   }
 
   secondaryButton() {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          color: secondary, borderRadius: BorderRadius.circular(12)),
-      child: this,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+        child: Container(
+          height: 36,
+          width: 36,
+          decoration: BoxDecoration(
+              color: secondary.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: secondary,
+                width: 1,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                    offset: Offset(0, 8),
+                    blurRadius: 16,
+                    color: Color(0x3E000000))
+              ]),
+          child: this,
+        ),
+      ),
     );
   }
 }
