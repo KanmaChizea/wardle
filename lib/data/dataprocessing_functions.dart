@@ -5,8 +5,11 @@ import 'package:woodul/data/exceptions.dart';
 import 'package:woodul/data/wordlist.dart';
 import 'package:woodul/logic/cell/cell_state_cubit.dart';
 import 'package:woodul/logic/keyboard/key_state.dart';
+import 'package:woodul/logic/level_cubit.dart';
 import 'package:woodul/logic/result/result_cubit.dart';
+import '../logic/animation/transition_cubit.dart';
 import '../logic/cell/cell_cubit.dart';
+import '../logic/cubit/navigation_cubit.dart';
 import '../logic/keyboard/controller_cubit.dart';
 import '../logic/cell/form_cubit.dart';
 
@@ -42,7 +45,7 @@ enter(BuildContext context) {
     throw WordDoesNotExist();
   }
   FormCubit state = context.read<FormCubit>();
-  List newstates = processEntry(enteredWord);
+  List newstates = processEntry(enteredWord, context);
   context.read<CellStateCubit>().newState(newstates[0], state.state);
   context.read<KeyStateCubit>().newState(newstates[1]);
   if (context
@@ -62,11 +65,11 @@ enter(BuildContext context) {
   }
 }
 
-processEntry(String enteredWord) {
+processEntry(String enteredWord, BuildContext context) {
   List<CellState> cellstate = [];
   final Map<String, CellState> keystate = {};
 
-  String levelAnswer = answers[0];
+  String levelAnswer = answers[context.read<LevelCubit>().state - 1];
   for (int i = 0; i < levelAnswer.length; i++) {
     if (enteredWord[i] == levelAnswer[i]) {
       cellstate.insert(i, CellState.rr);
@@ -89,4 +92,13 @@ int guessDistribution(List data) {
     if (element == CellState.rr) count++;
   }
   return count;
+}
+
+void resetStage(BuildContext context) async {
+  context.read<TransitionCubit>().toggle();
+  context.read<ControllerCubit>().generateControllers();
+  context.read<CellStateCubit>().resetState();
+  context.read<FormCubit>().reset();
+  context.read<KeyStateCubit>().resetState();
+  context.read<ResultCubit>().reset();
 }

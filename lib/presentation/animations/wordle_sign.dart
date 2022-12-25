@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../logic/animation/transition_cubit.dart';
 import '../../logic/animation/wordle_sign_cubit.dart';
-import '../components/hanger.dart';
+import '../widgets/hanger.dart';
 import '../styles/colors.dart';
 
 class AnimatedWordleSign extends StatefulWidget {

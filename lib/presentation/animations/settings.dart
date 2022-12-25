@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/presentation/extensions/iconbuttons.dart';
 
 import '../../logic/animation/settings_cubit.dart';
-import '../components/custom_icon.dart';
+import '../widgets/custom_icon.dart';
 
 class SettingsAnimation extends StatefulWidget {
   const SettingsAnimation({

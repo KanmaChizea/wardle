@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:woodul/logic/cell/cell_cubit.dart';
 
-import 'package:woodul/logic/cell/cell_cubit.dart ';
 import 'package:woodul/logic/keyboard/controller_cubit.dart';
 import 'package:woodul/logic/cell/form_cubit.dart';
 import 'package:woodul/navigation_handler.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ResultCubit(),
         ),
         BlocProvider(
-          create: (context) => LevelCubit(),
+          create: (context) => LevelCubit()..initializeLevel(),
         ),
         BlocProvider(
           create: (context) => WordleSignCubit(),

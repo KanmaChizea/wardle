@@ -17,3 +17,5 @@ class NavigationInitial extends NavigationState {}
 class NavigationLevel extends NavigationState {}
 
 class NavigationInfo extends NavigationState {}
+
+class NavigationGame extends NavigationState {}

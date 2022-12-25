@@ -8,4 +8,8 @@ class KeyStateCubit extends Cubit<Map<String, CellState>> {
     state.addAll(newState);
     emit(state);
   }
+
+  resetState() {
+    emit({});
+  }
 }

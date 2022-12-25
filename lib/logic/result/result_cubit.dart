@@ -13,4 +13,8 @@ class ResultCubit extends Cubit<ResultState> {
   levelFailed() {
     emit(Failed());
   }
+
+  reset() {
+    emit(ResultInitial());
+  }
 }

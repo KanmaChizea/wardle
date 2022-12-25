@@ -58,4 +58,30 @@ extension IconCustomization on Widget {
       ),
     );
   }
+
+  ClipRRect disabledButton() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+        child: Container(
+            height: 40,
+            width: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: grey1,
+                  width: 1,
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                      offset: Offset(0, 8),
+                      blurRadius: 16,
+                      color: Color(0x3E000000))
+                ]),
+            child: this),
+      ),
+    );
+  }
 }

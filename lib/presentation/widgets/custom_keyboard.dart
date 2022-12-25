@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/data/exceptions.dart';
 import 'package:woodul/data/dataprocessing_functions.dart';
-import 'package:woodul/logic/cell/cell_cubit.dart';
 import 'package:woodul/logic/cell/cell_state_cubit.dart';
 import 'package:woodul/logic/keyboard/controller_cubit.dart';
 import 'package:woodul/logic/keyboard/key_state.dart';
@@ -10,10 +9,8 @@ import 'package:woodul/logic/keyboard/key_state.dart';
 import 'error_snackbar.dart';
 
 class CustomKeyBoard extends StatefulWidget {
-  final List<TextEditingController> controllers;
   const CustomKeyBoard({
     Key? key,
-    required this.controllers,
   }) : super(key: key);
 
   @override
@@ -32,7 +29,6 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    BlocProvider.of<CellCubit>(context, listen: true);
 
     final keyWidth = width / 12;
     return Align(
@@ -87,44 +83,40 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
   buildSpecialKey(IconData icon) {
     return BlocBuilder<ControllerCubit, List<TextEditingController>>(
       builder: (context, controllerState) {
-        return BlocBuilder<CellCubit, int>(
-          builder: (context, indexState) {
-            return InkWell(
-                onTap: (() {
-                  if (icon == Icons.backspace_outlined) {
-                    try {
-                      delete(context);
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          errorSnackBar('Nothing to delete', context));
-                    }
-                  }
-                  if (icon == Icons.keyboard_return) {
-                    try {
-                      enter(context);
-                    } on NotEnoughLetters {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          errorSnackBar('Not enough letters', context));
-                    } on WordDoesNotExist {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          errorSnackBar('Word does not exist', context));
-                    }
-                  }
-                }),
-                child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade700,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Center(
-                        child: Icon(
-                      icon,
-                      size: 23,
-                      color: Colors.white,
-                    ))));
-          },
-        );
+        return InkWell(
+            onTap: (() {
+              if (icon == Icons.backspace_outlined) {
+                try {
+                  delete(context);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      errorSnackBar('Nothing to delete', context));
+                }
+              }
+              if (icon == Icons.keyboard_return) {
+                try {
+                  enter(context);
+                } on NotEnoughLetters {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      errorSnackBar('Not enough letters', context));
+                } on WordDoesNotExist {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      errorSnackBar('Word does not exist', context));
+                }
+              }
+            }),
+            child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade700,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Center(
+                    child: Icon(
+                  icon,
+                  size: 23,
+                  color: Colors.white,
+                ))));
       },
     );
   }
@@ -135,6 +127,7 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
         try {
           add(context, letter);
         } catch (e) {
+          print(e);
           ScaffoldMessenger.of(context)
               .showSnackBar(errorSnackBar('End of word', context));
         }

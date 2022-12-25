@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:woodul/presentation/animations/drop.dart';
-import 'package:woodul/presentation/components/background.dart';
+import 'package:woodul/presentation/widgets/background.dart';
 
-import '../components/options.dart';
+import '../widgets/options.dart';
+import '../widgets/play_button.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class MenuScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             SignDrop(),
+            PlayButton(),
             MenuOptions(),
           ]),
     ));

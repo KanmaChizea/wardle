@@ -31,4 +31,8 @@ class NavigationCubit extends Cubit<NavigationState> {
   void goback() {
     emit(previousState);
   }
+
+  void play() {
+    emit(NavigationGame());
+  }
 }

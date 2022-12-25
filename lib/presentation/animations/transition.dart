@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../logic/animation/transition_cubit.dart';
-import '../components/painter.dart';
+import '../widgets/painter.dart';
 
 class TransitionAnimation extends StatefulWidget {
   const TransitionAnimation({
