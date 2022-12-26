@@ -5,8 +5,9 @@ class KeyStateCubit extends Cubit<Map<String, CellState>> {
   KeyStateCubit() : super({});
 
   newState(Map<String, CellState> newState) {
-    state.addAll(newState);
-    emit(state);
+    final changed = {...state};
+    changed.addAll(newState);
+    emit(changed);
   }
 
   resetState() {

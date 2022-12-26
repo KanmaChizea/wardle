@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodul/data/dataprocessing_functions.dart';
 import 'package:woodul/logic/cell/form_cubit.dart';
 import 'package:woodul/logic/level_cubit.dart';
+import 'package:woodul/presentation/screens/game.dart';
 import 'package:woodul/presentation/styles/textstyles.dart';
 import 'package:woodul/presentation/widgets/ratings.dart';
 
+import '../../logic/cubit/level_navigation_cubit.dart';
 import '../styles/colors.dart';
 import 'guess_distribution.dart';
 
@@ -65,6 +67,11 @@ class GameOver extends StatelessWidget {
                               .read<LevelCubit>()
                               .gotoLevel(context.read<LevelCubit>().state);
                           resetStage(context);
+
+                          context.read<LevelNavigationCubit>().setToFalse();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const GameScreen()));
                         },
                         style: TextButton.styleFrom(
                             foregroundColor: white,
@@ -93,6 +100,10 @@ class GameOver extends StatelessWidget {
                           Navigator.of(dialogContext).pop();
                           context.read<LevelCubit>().nextLevel();
                           resetStage(context);
+                          context.read<LevelNavigationCubit>().setToFalse();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const GameScreen()));
                         }),
                   )
           ],

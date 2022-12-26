@@ -6,10 +6,14 @@ class ControllerCubit extends Cubit<List<TextEditingController>> {
       : super(List.generate(5, (index) => TextEditingController()));
 
   void generateControllers() {
+    disposeControllers();
+    emit(List.generate(5, (index) => TextEditingController()));
+  }
+
+  disposeControllers() {
     for (var i in state) {
       i.dispose();
     }
-    emit(List.generate(5, (index) => TextEditingController()));
   }
 
   setController(int index, String text) {

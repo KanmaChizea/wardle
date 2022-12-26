@@ -127,7 +127,6 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
         try {
           add(context, letter);
         } catch (e) {
-          print(e);
           ScaffoldMessenger.of(context)
               .showSnackBar(errorSnackBar('End of word', context));
         }

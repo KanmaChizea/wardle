@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:woodul/data/dataprocessing_functions.dart';
 import 'package:woodul/data/wordlist.dart';
 import 'package:woodul/logic/level_cubit.dart';
@@ -8,9 +9,7 @@ import 'package:woodul/presentation/styles/colors.dart';
 import 'package:woodul/presentation/widgets/background.dart';
 import 'package:woodul/presentation/styles/textstyles.dart';
 import 'package:woodul/presentation/widgets/custom_appbar.dart';
-import 'package:woodul/presentation/widgets/custom_icon.dart';
 
-import '../../logic/animation/transition_cubit.dart';
 import '../../logic/cubit/navigation_cubit.dart';
 
 class LevelsScreen extends StatelessWidget {
@@ -33,7 +32,7 @@ class LevelsScreen extends StatelessWidget {
                     mainAxisSpacing: 24),
                 itemCount: answers.length,
                 itemBuilder: (context, index) {
-                  final level = context.watch<LevelCubit>().state;
+                  final level = context.watch<LevelCubit>().highestLevel;
                   return GestureDetector(
                       onTap: () {
                         if (index + 1 <= level) {

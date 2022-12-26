@@ -7,6 +7,10 @@ class FormCubit extends Cubit<int> {
     if (state <= 6) emit(state + 1);
   }
 
+  void set(int index) {
+    emit(index);
+  }
+
   void reset() {
     emit(1);
   }

@@ -7,9 +7,7 @@ import 'package:woodul/logic/cell/cell_state_cubit.dart';
 import 'package:woodul/logic/keyboard/key_state.dart';
 import 'package:woodul/logic/level_cubit.dart';
 import 'package:woodul/logic/result/result_cubit.dart';
-import '../logic/animation/transition_cubit.dart';
 import '../logic/cell/cell_cubit.dart';
-import '../logic/cubit/navigation_cubit.dart';
 import '../logic/keyboard/controller_cubit.dart';
 import '../logic/cell/form_cubit.dart';
 
@@ -83,6 +81,7 @@ processEntry(String enteredWord, BuildContext context) {
       keystate[enteredWord[i]] = CellState.ww;
     }
   }
+
   return [cellstate, keystate];
 }
 
@@ -95,7 +94,6 @@ int guessDistribution(List data) {
 }
 
 void resetStage(BuildContext context) async {
-  context.read<TransitionCubit>().toggle();
   context.read<ControllerCubit>().generateControllers();
   context.read<CellStateCubit>().resetState();
   context.read<FormCubit>().reset();

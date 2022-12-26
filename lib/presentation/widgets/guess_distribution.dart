@@ -25,9 +25,9 @@ class GuessDistribution extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Builder(builder: (context) {
-        final count = context.read<FormCubit>().state != 6
+        final count = context.read<FormCubit>().state < 5
             ? context.read<FormCubit>().state - 1
-            : 6;
+            : context.read<FormCubit>().state;
         List<CellState> compressedList = [];
         final stateList = context.read<CellStateCubit>().state;
         for (int j = 1; j <= count; j++) {

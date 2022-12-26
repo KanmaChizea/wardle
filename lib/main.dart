@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:woodul/logic/cell/cell_cubit.dart';
+import 'package:woodul/logic/cubit/level_navigation_cubit.dart';
 
 import 'package:woodul/logic/keyboard/controller_cubit.dart';
 import 'package:woodul/logic/cell/form_cubit.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => LevelNavigationCubit(),
+        ),
         BlocProvider(
           create: (context) => FormCubit(),
         ),
